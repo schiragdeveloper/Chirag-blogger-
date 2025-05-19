@@ -6,1245 +6,328 @@
     <title>Chirag Sathwara's Blog & APK Hub</title>
     <meta name="description" content="Welcome to Chirag Sathwara's personal blog and APK download hub. Get the latest tech insights and app releases.">
     <meta name="author" content="Chirag Sathwara">
-    <meta name="theme-color" content="#007bff"> <!-- PWA: Theme color -->
+    <meta name="theme-color" content="#0D6EFD"> <!-- PWA: Theme color -->
     <link rel="manifest" href="manifest.json"> <!-- PWA: Manifest file -->
     <link rel="apple-touch-icon" href="icon-192x192.png"> <!-- PWA: iOS icon -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- For icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         /* --- Reset & Base Styles --- */
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --accent-color: #28a745; /* Green for APKs, success */
-            --danger-color: #dc3545;
+            --primary-color: #0D6EFD; /* Bootstrap Blue */
+            --primary-hover: #0B5ED7;
+            --secondary-color: #6c757d; /* Bootstrap Gray */
+            --success-color: #198754;  /* Bootstrap Green */
+            --danger-color: #dc3545;   /* Bootstrap Red */
+            --warning-color: #ffc107;  /* Bootstrap Yellow */
             --light-bg: #f8f9fa;
-            --dark-bg: #121212; /* Darker dark mode */
-            --light-card-bg: #ffffff;
-            --dark-card-bg: #1e1e1e; /* Darker card for better contrast */
-            --light-text: #212529;
-            --dark-text: #e0e0e0;
-            --light-border: #dee2e6;
-            --dark-border: #333333;
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            --border-radius: 10px;
-            --transition-speed: 0.3s;
-            --gradient-primary: linear-gradient(135deg, #007bff, #0056b3);
-            --gradient-accent: linear-gradient(135deg, #28a745, #1e7e34);
+            --dark-bg: #1c1c1e; /* Slightly lighter dark for less harshness */
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #2a2a2c;
+            --text-light: #212529;
+            --text-dark: #e9ecef;
+            --border-light: #dee2e6;
+            --border-dark: #495057;
+            --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+            --shadow-md: 0 .5rem 1rem rgba(0,0,0,.1);
+            --shadow-lg: 0 1rem 3rem rgba(0,0,0,.125);
+            --border-radius: 0.5rem; /* Slightly larger radius */
+            --transition-speed: 0.25s;
+            --font-family-sans-serif: 'Poppins', sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-family-sans-serif);
             margin: 0;
-            padding-top: 75px; /* For fixed navbar */
+            padding-top: 80px; /* For fixed navbar */
             background-color: var(--light-bg);
-            color: var(--light-text);
+            color: var(--text-light);
             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-            line-height: 1.7;
+            line-height: 1.6;
+            font-weight: 400;
         }
 
         body.dark-mode {
             --light-bg: var(--dark-bg);
-            --light-card-bg: var(--dark-card-bg);
-            --light-text: var(--dark-text);
-            --light-border: var(--dark-border);
-            --primary-color: #0099ff;
-            --accent-color: #34c759;
-            --gradient-primary: linear-gradient(135deg, #0099ff, #006bb3);
-            --gradient-accent: linear-gradient(135deg, #34c759, #28a745);
+            --card-bg-light: var(--card-bg-dark);
+            --text-light: var(--text-dark);
+            --border-light: var(--border-dark);
+            --primary-color: #3D8BFD; /* Brighter blue for dark mode */
+            --primary-hover: #2A7AFE;
+            --success-color: #20A962;
         }
 
         /* --- Utility Classes --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 25px 20px;
-        }
+        .container { max-width: 1140px; margin: 0 auto; padding: 30px 20px; }
         .hidden { display: none !important; }
         .text-center { text-align: center; }
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; } .mb-3 { margin-bottom: 1.5rem; } .mb-4 { margin-bottom: 2rem; }
+        .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.5rem; } .mt-4 { margin-top: 2rem; }
 
         /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
         /* --- Navbar --- */
         .navbar {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: var(--card-bg-light);
+            padding: 0; /* Let container handle padding */
+            position: fixed; top: 0; left: 0; width: 100%;
+            z-index: 1000; box-shadow: var(--shadow-md);
+            transition: background-color var(--transition-speed) ease;
         }
         .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0;
-            padding-bottom: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            height: 80px; padding-top:0; padding-bottom:0;
         }
         .navbar-brand {
-            font-size: 1.9em;
-            font-weight: 700;
-            color: white !important;
+            font-size: 2em; font-weight: 700; color: var(--primary-color) !important;
             text-decoration: none;
         }
-        .nav-links { display: flex; align-items: center; }
+        .nav-links-container { display: flex; align-items: center; }
+        .nav-links { display: flex; align-items: center; list-style: none; margin:0; padding:0; }
+        .nav-links li { margin-left: 25px; }
         .nav-links a, .nav-links button {
-            color: white;
-            text-decoration: none;
-            margin-left: 22px;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            color: var(--text-light); text-decoration: none; font-weight: 500;
+            padding: 10px 15px; border-radius: var(--border-radius);
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            position: relative;
+        }
+        .nav-links a::after, .nav-links button::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            display: block; margin-top: 5px; right: 0;
+            background: var(--primary-color);
+            transition: width 0.3s ease; -webkit-transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links button:hover::after,
+        .nav-links a.active::after, .nav-links button.active::after {
+            width: 100%; left: 0;
+        }
+        .nav-links a:hover, .nav-links button:hover,
+        .nav-links a.active, .nav-links button.active {
+            color: var(--primary-color);
         }
         .nav-links button { background: none; border: none; font-family: inherit; font-size: inherit; cursor: pointer; }
-        .nav-links a:hover, .nav-links button:hover { background-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+        .nav-actions { display:flex; align-items:center; }
         .theme-toggle-btn, .mobile-menu-btn {
-            background: none; border: none; font-size: 1.6em; cursor: pointer; color: white;
-            margin-left: 15px; padding: 5px; border-radius: 50%;
-            transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+            background: transparent; border: none; font-size: 1.5em; cursor: pointer;
+            color: var(--text-light); margin-left: 20px; padding: 8px;
+            border-radius: 50%; width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
+        .theme-toggle-btn:hover, .mobile-menu-btn:hover { background-color: var(--light-bg); }
+        body.dark-mode .theme-toggle-btn:hover, body.dark-mode .mobile-menu-btn:hover { background-color: var(--dark-bg); }
         .mobile-menu-btn { display: none; }
 
 
         /* --- Section Titles --- */
         .section-title {
-            font-size: 2.2em;
-            font-weight: 600;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
+            font-size: 2.5em; font-weight: 700; color: var(--text-light);
+            text-align: center; margin-bottom: 40px; position: relative;
         }
         .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: var(--gradient-primary);
-            margin: 8px auto 0;
+            content: ''; display: block; width: 80px; height: 4px;
+            background: var(--primary-color); margin: 10px auto 0;
             border-radius: 2px;
+        }
+        .empty-state-message {
+            text-align:center; font-size: 1.1em; color: var(--secondary-color);
+            padding: 20px; background-color: var(--card-bg-light);
+            border-radius: var(--border-radius); box-shadow: var(--shadow-sm);
         }
 
         /* --- Cards (Blog & APK) --- */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .card {
-            background-color: var(--light-card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
+            background-color: var(--card-bg-light); border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md); overflow: hidden;
             transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column; border: 1px solid var(--border-light);
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-        .card-thumbnail { width: 100%; height: 200px; object-fit: cover; }
-        .card-thumbnail-video { width: 100%; height: 200px; background-color: #000; display:flex; align-items:center; justify-content:center; color:white; font-size:1.2em; }
-        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-title { font-size: 1.5em; font-weight: 600; margin: 0 0 10px; color: var(--primary-color); }
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .card-thumbnail { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-light); }
+        .card-thumbnail-video {
+            width: 100%; height: 220px; background-color: #111; display:flex;
+            align-items:center; justify-content:center; color:white; font-size:1.5em;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .card-thumbnail-video i { font-size: 2em; opacity: 0.7;}
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title {
+            font-size: 1.6em; font-weight: 600; margin: 0 0 12px;
+            color: var(--primary-color); line-height: 1.3;
+        }
+        .card-meta { font-size: 0.85em; color: var(--secondary-color); margin-bottom: 15px; display:flex; align-items:center; flex-wrap:wrap;}
+        .card-meta span { margin-right: 12px; display:inline-flex; align-items:center; }
+        .card-meta i { margin-right: 5px; }
         .card-description {
-            font-size: 0.95em; color: var(--secondary-color); margin-bottom: 15px; flex-grow: 1;
-            line-height: 1.6; overflow: hidden; text-overflow: ellipsis;
+            font-size: 0.95em; color: var(--text-light); opacity:0.85; margin-bottom: 20px;
+            flex-grow: 1; line-height: 1.6; overflow: hidden; text-overflow: ellipsis;
             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
         }
-        body.dark-mode .card-description { color: #ccc; }
-        .card-meta { font-size: 0.85em; color: #777; margin-bottom: 15px; }
-        body.dark-mode .card-meta { color: #aaa; }
         .card-button {
-            background: var(--gradient-primary); color: white; border: none; padding: 10px 18px;
-            border-radius: var(--border-radius); cursor: pointer; text-decoration: none; font-weight: 600;
-            transition: opacity var(--transition-speed) ease, transform 0.2s ease; align-self: flex-start;
+            background-color: var(--primary-color); color: white; border: none; padding: 12px 22px;
+            border-radius: var(--border-radius); cursor: pointer; text-decoration: none;
+            font-weight: 500; font-size: 0.95em;
+            transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+            align-self: flex-start; display: inline-flex; align-items: center;
         }
-        .card-button:hover { opacity: 0.85; transform: translateY(-2px); }
-        .apk-card .card-button { background: var(--gradient-accent); }
+        .card-button i { margin-right: 8px; }
+        .card-button:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+        .apk-card .card-button { background-color: var(--success-color); }
+        .apk-card .card-button:hover { background-color: var(--success-hover, #146C43)); } /* Define success-hover if needed */
+        .apk-card .card-title i { margin-right: 10px; }
 
         /* --- Blog Post Details Page --- */
         #blog-details-page article {
-            background-color: var(--light-card-bg);
-            padding: 25px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
+            background-color: var(--card-bg-light); padding: 30px;
+            border-radius: var(--border-radius); box-shadow: var(--shadow-md);
         }
-        .post-header { margin-bottom: 25px; }
-        .post-title { font-size: 2.4em; font-weight: 700; margin-bottom: 10px; color: var(--primary-color); line-height: 1.3; }
-        .post-meta { font-size: 0.9em; color: var(--secondary-color); margin-bottom: 20px; }
-        body.dark-mode .post-meta { color: #bbb; }
-        .post-meta span { margin-right: 15px; }
-        .post-featured-media { width: 100%; max-height: 450px; object-fit: cover; border-radius: var(--border-radius); margin-bottom: 25px; }
-        .post-featured-media-video { width: 100%; height: 450px; border-radius: var(--border-radius); margin-bottom: 25px; }
-        .post-content { font-size: 1.1em; line-height: 1.8; } /* For HTML content */
-        .post-content p { margin-bottom: 1em; }
-        .post-content img { max-width: 100%; height: auto; border-radius: var(--border-radius); margin: 15px 0; }
+        .post-header { margin-bottom: 30px; }
+        .post-title { font-size: 2.8em; font-weight: 700; margin-bottom: 15px; color: var(--primary-color); line-height: 1.2; }
+        .post-meta { font-size: 0.95em; color: var(--secondary-color); margin-bottom: 25px; display:flex; align-items:center; flex-wrap: wrap; }
+        .post-meta span { margin-right: 20px; display:inline-flex; align-items:center; }
+        .post-meta i { margin-right: 8px; color: var(--primary-color); opacity: 0.8; }
+        .post-featured-media { width: 100%; max-height: 500px; object-fit: cover; border-radius: var(--border-radius); margin-bottom: 30px; box-shadow: var(--shadow-sm); }
+        .post-featured-media-video { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--border-radius); margin-bottom: 30px; box-shadow: var(--shadow-sm); }
+        .post-content { font-size: 1.1em; line-height: 1.8; color: var(--text-light); opacity:0.9; }
+        .post-content p { margin-bottom: 1.2em; }
+        .post-content img { max-width: 100%; height: auto; border-radius: var(--border-radius); margin: 20px 0; box-shadow: var(--shadow-sm); }
+        .post-content h2, .post-content h3 { color: var(--primary-color); margin-top: 1.5em; margin-bottom: 0.5em;}
 
         /* Post Actions: Share, Like */
-        .post-actions { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--light-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .post-actions { margin-top: 35px; padding-top: 25px; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .share-buttons button, .like-button {
-            background: transparent; border: 1px solid var(--light-border); color: var(--secondary-color);
-            padding: 8px 15px; margin: 5px; border-radius: var(--border-radius); cursor: pointer;
-            font-size: 0.9em; transition: all var(--transition-speed) ease; display: inline-flex; align-items: center;
+            background: transparent; border: 1px solid var(--border-light); color: var(--secondary-color);
+            padding: 10px 18px; border-radius: var(--border-radius); cursor: pointer;
+            font-size: 0.95em; transition: all var(--transition-speed) ease; display: inline-flex; align-items: center; font-weight:500;
         }
-        body.dark-mode .share-buttons button, body.dark-mode .like-button { border-color: var(--dark-border); color: var(--dark-text); }
-        .share-buttons button i { margin-right: 8px; }
-        .share-buttons button.whatsapp { color: #25D366; border-color: #25D366; }
-        .share-buttons button.whatsapp:hover { background-color: #25D366; color: white; }
-        .share-buttons button.facebook { color: #1877F2; border-color: #1877F2; }
-        .share-buttons button.facebook:hover { background-color: #1877F2; color: white; }
-        .share-buttons button.twitter { color: #1DA1F2; border-color: #1DA1F2; }
-        .share-buttons button.twitter:hover { background-color: #1DA1F2; color: white; }
+        .share-buttons button i { margin-right: 8px; font-size: 1.1em; }
+        .share-buttons button:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+        .share-buttons button.whatsapp:hover { border-color: #25D366; color: #25D366; background-color: rgba(37, 211, 102, 0.1); }
+        .share-buttons button.facebook:hover { border-color: #1877F2; color: #1877F2; background-color: rgba(24, 119, 242, 0.1); }
+        .share-buttons button.twitter:hover { border-color: #1DA1F2; color: #1DA1F2; background-color: rgba(29, 161, 242, 0.1); }
 
         .like-button { color: var(--danger-color); border-color: var(--danger-color); }
+        .like-button:hover { background-color: rgba(220, 53, 69, 0.1); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
         .like-button.liked { background-color: var(--danger-color); color: white; }
-        .like-button.liked .like-icon { animation: pulse 0.5s ease; }
-        .like-icon { margin-right: 5px; }
+        .like-button.liked .like-icon { animation: pulse 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .like-icon { margin-right: 8px; font-size: 1.1em; }
 
         /* Comments Section */
-        .comments-section { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--light-border); }
-        .comments-section h3 { font-size: 1.6em; margin-bottom: 20px; }
-        .comment { background-color: var(--light-bg); padding: 15px; border-radius: var(--border-radius); margin-bottom: 15px; border: 1px solid var(--light-border); }
-        body.dark-mode .comment { background-color: var(--dark-card-bg); border-color: var(--dark-border); }
-        .comment p { margin: 5px 0; }
-        .comment .comment-author { font-weight: 600; color: var(--primary-color); }
-        .comment .comment-text { font-size: 0.95em; }
-        .comment .comment-date { font-size: 0.8em; color: #777; }
-        body.dark-mode .comment .comment-date { color: #aaa; }
-
-        #comment-form textarea, #comment-form input[type="text"] {
-            width: calc(100% - 22px); padding: 10px; border-radius: var(--border-radius);
-            border: 1px solid var(--light-border); margin-bottom: 10px; font-family: inherit; font-size: 1em;
-            background-color: var(--light-card-bg); color: var(--light-text);
+        .comments-section { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border-light); }
+        .comments-section > h3 { font-size: 1.8em; margin-bottom: 25px; font-weight:600; }
+        .comment {
+            background-color: var(--light-bg); padding: 20px; border-radius: var(--border-radius);
+            margin-bottom: 20px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);
         }
-        body.dark-mode #comment-form textarea, body.dark-mode #comment-form input[type="text"] {
-             background-color: var(--dark-bg); color: var(--dark-text); border-color: var(--dark-border);
+        .comment-header { display: flex; align-items: center; margin-bottom: 8px; }
+        .comment-author-avatar {
+            width: 40px; height: 40px; border-radius: 50%; background-color: var(--primary-color);
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: 1.2em; margin-right: 12px; text-transform: uppercase;
+        }
+        .comment-author { font-weight: 600; color: var(--primary-color); font-size: 1.05em; }
+        .comment-date { font-size: 0.8em; color: var(--secondary-color); margin-left: auto; }
+        .comment-text { font-size: 0.95em; line-height: 1.7; color: var(--text-light); opacity:0.9; }
+
+        #comment-form { margin-top: 25px; }
+        #comment-form h4 { font-size: 1.3em; margin-bottom: 15px; font-weight:600; }
+        #comment-form textarea, #comment-form input[type="text"] {
+            width: calc(100% - 24px); padding: 12px; border-radius: var(--border-radius);
+            border: 1px solid var(--border-light); margin-bottom: 15px; font-family: inherit; font-size: 1em;
+            background-color: var(--card-bg-light); color: var(--text-light);
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+        #comment-form textarea:focus, #comment-form input[type="text"]:focus {
+            border-color: var(--primary-color); box-shadow: 0 0 0 .25rem rgba(var(--bs-primary-rgb, 13, 110, 253),.25); /* Bootstrap focus */
+            outline: 0;
         }
         #comment-form button {
-            background: var(--gradient-primary); color: white; border: none; padding: 10px 20px;
-            border-radius: var(--border-radius); cursor: pointer; font-weight: 600;
-            transition: opacity var(--transition-speed) ease, transform 0.2s ease;
+            background-color: var(--primary-color); color: white; border: none; padding: 12px 25px;
+            border-radius: var(--border-radius); cursor: pointer; font-weight: 500; font-size: 1em;
+            transition: background-color var(--transition-speed) ease, transform 0.2s ease;
         }
-        #comment-form button:hover { opacity: 0.85; transform: translateY(-2px); }
-
-        /* --- APK Download Page --- */
-        /* Uses .card-grid and .card styling */
+        #comment-form button:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
 
         /* --- Admin Panel --- */
-        #admin-panel { background-color: var(--light-card-bg); padding: 25px; border-radius: var(--border-radius); box-shadow: var(--card-shadow); }
-        .admin-section { margin-bottom: 40px; }
-        .admin-section h3 { font-size: 1.8em; margin-bottom: 20px; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
+        #admin-panel-page { background-color: var(--light-bg); } /* Full page background */
+        .admin-section {
+            background-color: var(--card-bg-light); padding: 30px;
+            border-radius: var(--border-radius); box-shadow: var(--shadow-md); margin-bottom: 40px;
+        }
+        .admin-section h3 {
+            font-size: 1.8em; margin-bottom: 25px; color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color); padding-bottom: 12px; font-weight: 600;
+        }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
         .form-group input[type="text"],
         .form-group input[type="url"],
-        .form-group input[type="file"], /* Though not directly used for APK file, kept for consistency */
         .form-group textarea,
         .form-group select {
-            width: calc(100% - 24px); padding: 12px; border: 1px solid var(--light-border);
+            width: calc(100% - 26px); padding: 12px; border: 1px solid var(--border-light);
             border-radius: var(--border-radius); font-size: 1em; font-family: inherit;
-            background-color: var(--light-bg); color: var(--light-text);
+            background-color: var(--light-bg); color: var(--text-light);
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
         }
-        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select {
-            background-color: var(--dark-bg); color: var(--dark-text); border-color: var(--dark-border);
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--primary-color); outline:0;
+            box-shadow: 0 0 0 .2rem rgba(var(--bs-primary-rgb,13,110,253),.25);
         }
-        .form-group textarea { min-height: 150px; resize: vertical; }
-        .admin-button {
-            background: var(--gradient-primary); color: white; border: none; padding: 12px 25px;
-            font-size: 1.05em; font-weight: 600; border-radius: var(--border-radius); cursor: pointer;
-            transition: opacity var(--transition-speed) ease, transform 0.2s ease;
-        }
-        .admin-button:hover { opacity: 0.85; transform: translateY(-2px); }
-        .admin-button.delete { background: var(--danger-color); }
-        .admin-button.edit { background: var(--secondary-color); margin-right: 10px; }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-group small { display:block; margin-top: 5px; font-size:0.85em; color: var(--secondary-color); }
 
-        .admin-list table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .admin-button-group { display:flex; gap:10px; }
+        .admin-button {
+            background-color: var(--primary-color); color: white; border: none; padding: 10px 20px;
+            font-size: 1em; font-weight: 500; border-radius: var(--border-radius); cursor: pointer;
+            transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+            display: inline-flex; align-items: center;
+        }
+        .admin-button i { margin-right: 8px; }
+        .admin-button:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+        .admin-button.delete { background-color: var(--danger-color); }
+        .admin-button.delete:hover { background-color: #B02A37; }
+        .admin-button.edit { background-color: var(--warning-color); color: var(--text-light);}
+        .admin-button.edit:hover { background-color: #D9A006; }
+        .admin-button.clear { background-color: var(--secondary-color); }
+        .admin-button.clear:hover { background-color: #5A6268; }
+
+        .admin-list table { width: 100%; border-collapse: collapse; margin-top: 25px; font-size:0.95em; }
         .admin-list th, .admin-list td {
-            border: 1px solid var(--light-border); padding: 10px; text-align: left;
+            border: 1px solid var(--border-light); padding: 12px 15px; text-align: left;
         }
         .admin-list th { background-color: var(--light-bg); font-weight: 600; }
-        body.dark-mode .admin-list th { background-color: var(--dark-card-bg); }
-        body.dark-mode .admin-list th, body.dark-mode .admin-list td { border-color: var(--dark-border); }
-        .admin-list .actions button { margin-right: 5px; padding: 6px 10px; font-size:0.9em; }
+        .admin-list .actions button { margin-right: 8px; padding: 6px 10px; font-size:0.9em; }
 
         /* --- Contact Us & About Us Page --- */
         .static-page-content {
-            background-color: var(--light-card-bg); padding: 25px;
-            border-radius: var(--border-radius); box-shadow: var(--card-shadow);
-            line-height: 1.8;
+            background-color: var(--card-bg-light); padding: 30px;
+            border-radius: var(--border-radius); box-shadow: var(--shadow-md);
+            line-height: 1.8; font-size: 1.05em;
         }
-        .static-page-content h2 { font-size: 1.8em; color: var(--primary-color); margin-bottom: 15px; }
-        .static-page-content p { margin-bottom: 12px; }
-        .static-page-content a { color: var(--primary-color); text-decoration: none; }
+        .static-page-content h2 { font-size: 1.8em; color: var(--primary-color); margin-bottom: 20px; font-weight:600; }
+        .static-page-content p { margin-bottom: 15px; opacity:0.9; }
+        .static-page-content a { color: var(--primary-color); text-decoration: none; font-weight:500; }
         .static-page-content a:hover { text-decoration: underline; }
-        .contact-info i { margin-right: 10px; color: var(--primary-color); width: 20px; text-align: center; }
+        .contact-info { list-style: none; padding-left: 0; }
+        .contact-info li { margin-bottom: 15px; display:flex; align-items:center; }
+        .contact-info i { margin-right: 12px; color: var(--primary-color); width: 22px; text-align: center; font-size: 1.2em;}
 
         /* --- Footer --- */
         .footer {
-            background: var(--dark-bg); /* Always dark */
-            color: #ccc;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 40px;
+            background: var(--dark-bg); /* Always dark for contrast */
+            color: #adb5bd; /* Lighter gray for footer text */
+            padding: 40px 0; text-align: center; margin-top: 50px;
         }
-        .footer p { margin: 5px 0; font-size: 0.9em; }
+        .footer p { margin: 8px 0; font-size: 0.9em; }
         .footer .social-links a {
-            color: #ccc; margin: 0 10px; font-size: 1.5em;
-            transition: color var(--transition-speed) ease;
-        }
-        .footer .social-links a:hover { color: var(--primary-color); }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--light-bg); display: flex;
-            justify-content: center; align-items: center; z-index: 9999;
-            opacity: 1; transition: opacity 0.5s ease;
-        }
-        body.dark-mode .loading-screen { background-color: var(--dark-bg); }
-        .loader {
-            border: 6px solid #f3f3f3; border-top: 6px solid var(--primary-color);
-            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* PWA Install Banner */
-        #install-banner {
-            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
-            background-color: var(--primary-color); color: white; padding: 15px;
-            text-align: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 1001;
-        }
-        #install-banner p { margin: 0 0 10px 0; }
-        #install-banner button {
-            padding: 8px 15px; margin: 0 5px; border-radius: var(--border-radius);
-            border: 1px solid white; background-color: transparent; color: white; cursor: pointer;
-        }
-        #install-banner button#install-app-action-btn { background-color: white; color: var(--primary-color); font-weight: bold; }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body { padding-top: 65px; }
-            .navbar .container { padding: 0 15px; }
-            .nav-links {
-                display: none; flex-direction: column; position: absolute;
-                top: 65px; /* Height of navbar */
-                left: 0; width: 100%;
-                background: var(--gradient-primary); /* Match navbar */
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 10px 0;
-            }
-            .nav-links.active { display: flex; }
-            .nav-links a, .nav-links button { margin: 10px 0; text-align: center; width: 90%; margin-left:auto; margin-right:auto; }
-            .mobile-menu-btn { display: block; }
-            .theme-toggle-btn { margin-left: 10px; font-size: 1.4em; }
-
-            .card-grid { grid-template-columns: 1fr; }
-            .post-title { font-size: 1.8em; }
-            .post-featured-media-video { height: 250px; }
-            .post-actions { flex-direction: column; align-items: stretch; }
-            .share-buttons, .like-button { width: 100%; margin: 8px 0; justify-content: center; }
-            .section-title { font-size: 1.8em; }
-            .admin-list td:nth-of-type(1):before { content: "Title: "; font-weight: bold; }
-            /* More complex table responsiveness might be needed for admin tables if many columns */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="loading-screen" id="loadingScreen"><div class="loader"></div></div>
-
-    <nav class="navbar">
-        <div class="container">
-            <a href="#home" class="navbar-brand nav-link">CS Blog</a>
-            <div class="nav-links-container">
-                <div class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#apk-downloads" class="nav-link">APK Downloads</a>
-                    <a href="#about" class="nav-link">About Me</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                    <button id="adminLoginBtn" class="nav-link">Admin Panel</button>
-                </div>
-            </div>
-            <div>
-                <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" title="Menu"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container">
-        <section id="home-page" class="page-section fade-in">
-            <!-- Content dynamically loaded -->
-        </section>
-
-        <section id="blog-details-page" class="page-section hidden fade-in">
-            <!-- Content dynamically loaded -->
-        </section>
-
-        <section id="apk-downloads-page" class="page-section hidden fade-in">
-            <!-- Content dynamically loaded -->
-        </section>
-
-        <section id="about-page" class="page-section hidden fade-in">
-            <h1 class="section-title">About Me</h1>
-            <div class="static-page-content">
-                <h2>Developer: Chirag Sathwara</h2>
-                <p>Hello! I'm Chirag Sathwara, a passionate web and mobile app developer. I enjoy creating modern, responsive, and user-friendly digital experiences.</p>
-                <p>This website serves as my personal blog where I share insights on technology, development, and various other topics that interest me. It also hosts some of the APKs I've developed or find useful.</p>
-                <p>My goal is to continuously learn and apply new technologies to build innovative solutions. I specialize in front-end development using HTML, CSS, and JavaScript, and I'm also proficient in various frameworks and backend technologies.</p>
-                <p>Feel free to explore the blog posts, download available APKs, and get in touch if you have any questions or collaboration ideas!</p>
-                <p>Thank you for visiting!</p>
-            </div>
-        </section>
-
-        <section id="contact-page" class="page-section hidden fade-in">
-            <h1 class="section-title">Contact Me</h1>
-            <div class="static-page-content">
-                <p>If you'd like to get in touch, you can reach me via the following methods:</p>
-                <ul class="contact-info" style="list-style: none; padding-left: 0;">
-                    <li class="mb-2"><i class="fas fa-envelope"></i> Gmail: <a href="mailto:vlogverse076@gmail.com">vlogverse076@gmail.com</a></li>
-                    <li class="mb-2"><i class="fas fa-phone-alt"></i> Mobile: <a href="tel:+918780553194">+91 8780553194</a></li>
-                    <!-- Add more contact methods if needed -->
-                </ul>
-                <p>I'll do my best to respond as soon as possible.</p>
-            </div>
-        </section>
-
-        <section id="admin-panel-page" class="page-section hidden fade-in">
-            <h1 class="section-title">Admin Panel</h1>
-            <div id="admin-content">
-                <!-- Admin forms and lists will be injected here -->
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="social-links">
-            <a href="https://github.com/yourusername" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://twitter.com/yourusername" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-            <!-- Add more social links -->
-        </div>
-        <p>© <span id="currentYear"></span> Chirag Sathwara. All Rights Reserved.</p>
-        <p>Developed by Chirag Sathwara</p>
-        <button id="downloadAppBtnPWA" class="hidden" style="background:var(--primary-color); color:white; border:none; padding:8px 12px; border-radius:5px; margin-top:10px; cursor:pointer;">Install Web App</button>
-    </footer>
-
-    <div id="install-banner">
-        <p>Get Chirag's Blog & APK Hub app for a better experience!</p>
-        <button id="install-app-action-btn">Install App</button>
-        <button id="dismiss-install-banner-btn">Later</button>
-    </div>
-
-    <script>
-    // --- Constants & Config ---
-    const ADMIN_NAME = "Chirag Sathwara";
-    const ADMIN_PASSWORD = "chiragadmin"; // IMPORTANT: Change this for any real use!
-    const GMAIL_CONTACT = "vlogverse076@gmail.com";
-    const MOBILE_CONTACT = "8780553194";
-    const APP_TITLE_BASE = "Chirag Sathwara's Blog & APK Hub";
-
-    const STORAGE_KEYS = {
-        blogs: 'cs_blogs_data',
-        apks: 'cs_apks_data',
-        likes: 'cs_likes_data',
-        theme: 'cs_theme_pref',
-        adminSess: 'cs_admin_session'
-    };
-
-    // --- State ---
-    let blogs = [];
-    let apks = [];
-    let currentTheme = 'light';
-    let isAdminLoggedIn = false;
-    let currentBlogId = null; // For editing/viewing
-    let currentApkId = null;  // For editing
-    let deferredInstallPrompt = null;
-
-    // --- DOM Elements ---
-    const DOMElements = {
-        body: document.body,
-        loadingScreen: document.getElementById('loadingScreen'),
-        navLinks: document.getElementById('navLinks'),
-        mobileMenuBtn: document.getElementById('mobileMenuBtn'),
-        themeToggleBtn: document.getElementById('themeToggleBtn'),
-        adminLoginBtn: document.getElementById('adminLoginBtn'),
-        currentYearEl: document.getElementById('currentYear'),
-        downloadAppBtnPWA: document.getElementById('downloadAppBtnPWA'),
-        installBanner: document.getElementById('install-banner'),
-        installAppActionBtn: document.getElementById('install-app-action-btn'),
-        dismissInstallBannerBtn: document.getElementById('dismiss-install-banner-btn'),
-
-        pageSections: {
-            home: document.getElementById('home-page'),
-            blogDetails: document.getElementById('blog-details-page'),
-            apkDownloads: document.getElementById('apk-downloads-page'),
-            about: document.getElementById('about-page'),
-            contact: document.getElementById('contact-page'),
-            adminPanel: document.getElementById('admin-panel-page'),
-            adminContent: document.getElementById('admin-content') // For admin forms
-        }
-    };
-
-    // --- LocalStorage Functions ---
-    function loadFromStorage(key, defaultValue = []) {
-        try {
-            const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : defaultValue;
-        } catch (e) {
-            console.error("Error loading from localStorage:", e);
-            return defaultValue;
-        }
-    }
-
-    function saveToStorage(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-        } catch (e) {
-            console.error("Error saving to localStorage:", e);
-        }
-    }
-
-    // --- Theme ---
-    function applyTheme(theme) {
-        DOMElements.body.classList.toggle('dark-mode', theme === 'dark');
-        DOMElements.themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        currentTheme = theme;
-        saveToStorage(STORAGE_KEYS.theme, theme);
-    }
-
-    function toggleTheme() {
-        applyTheme(currentTheme === 'light' ? 'dark' : 'light');
-    }
-
-    // --- PWA Install ---
-    window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault();
-        deferredInstallPrompt = event;
-        DOMElements.installBanner.style.display = 'block';
-        DOMElements.downloadAppBtnPWA.classList.remove('hidden');
-    });
-
-    async function triggerPWAInstall() {
-        if (deferredInstallPrompt) {
-            deferredInstallPrompt.prompt();
-            const { outcome } = await deferredInstallPrompt.userChoice;
-            if (outcome === 'accepted') {
-                console.log('User accepted the PWA installation');
-            }
-            deferredInstallPrompt = null;
-            DOMElements.installBanner.style.display = 'none';
-            DOMElements.downloadAppBtnPWA.classList.add('hidden');
-        } else {
-            alert("PWA installation is not available or already installed. To create an APK, host this PWA and use a tool like Bubblewrap with Android SDK.");
-        }
-    }
-    
-    // --- Admin ---
-    function checkAdminSession() {
-        const sessionActive = loadFromStorage(STORAGE_KEYS.adminSess, false);
-        if (sessionActive) {
-            isAdminLoggedIn = true;
-            DOMElements.adminLoginBtn.textContent = 'Logout Admin';
-        } else {
-            isAdminLoggedIn = false;
-            DOMElements.adminLoginBtn.textContent = 'Admin Panel';
-        }
-    }
-
-    function handleAdminLogin() {
-        if (isAdminLoggedIn) { // Logout
-            isAdminLoggedIn = false;
-            saveToStorage(STORAGE_KEYS.adminSess, false);
-            DOMElements.adminLoginBtn.textContent = 'Admin Panel';
-            navigateTo('home'); // Go to home after logout
-            alert('Admin logged out.');
-            return;
-        }
-
-        const password = prompt("Enter Admin Password:");
-        if (password === ADMIN_PASSWORD) {
-            isAdminLoggedIn = true;
-            saveToStorage(STORAGE_KEYS.adminSess, true);
-            DOMElements.adminLoginBtn.textContent = 'Logout Admin';
-            alert('Admin login successful!');
-            navigateTo('admin-panel');
-        } else if (password !== null) { // User entered something but it was wrong
-            alert('Incorrect password.');
-        }
-    }
-
-    // --- Navigation ---
-    function showPage(pageId) {
-        Object.values(DOMElements.pageSections).forEach(section => {
-            if (section) section.classList.add('hidden');
-        });
-        const targetPage = DOMElements.pageSections[pageId.split('/')[0]]; // Handle potential params
-        if (targetPage) {
-            targetPage.classList.remove('hidden');
-            targetPage.classList.add('fade-in');
-            window.scrollTo(0, 0);
-        } else {
-            console.error("Page not found:", pageId);
-            DOMElements.pageSections.home.classList.remove('hidden'); // Fallback to home
-        }
-        // Close mobile menu
-        DOMElements.navLinks.classList.remove('active');
-        DOMElements.mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    }
-    
-    function updateDocumentTitle(pageKey) {
-        let title = APP_TITLE_BASE;
-        switch(pageKey) {
-            case 'home': title = `${APP_TITLE_BASE} - Home`; break;
-            case 'blogDetails': title = `${currentBlogId ? blogs.find(b=>b.id===currentBlogId)?.title : 'Blog Post'} - ${APP_TITLE_BASE}`; break;
-            case 'apkDownloads': title = `APK Downloads - ${APP_TITLE_BASE}`; break;
-            case 'about': title = `About Me - ${APP_TITLE_BASE}`; break;
-            case 'contact': title = `Contact Me - ${APP_TITLE_BASE}`; break;
-            case 'admin-panel': title = `Admin Panel - ${APP_TITLE_BASE}`; break;
-        }
-        document.title = title;
-    }
-
-    function navigateTo(path) {
-        const [pageKey, param] = path.split('/');
-        if (pageKey === 'blogDetails' && param) {
-            currentBlogId = param;
-            renderBlogDetailsPage(param);
-        } else if (pageKey === 'home') {
-            renderHomePage();
-        } else if (pageKey === 'apkDownloads') {
-            renderApkDownloadsPage();
-        } else if (pageKey === 'admin-panel' && isAdminLoggedIn) {
-            renderAdminPanel();
-        } else if (pageKey === 'admin-panel' && !isAdminLoggedIn) {
-            alert("Please login as admin first.");
-            handleAdminLogin(); // Prompt for login
-            return; // Don't change hash yet
-        }
-
-
-        showPage(pageKey);
-        updateDocumentTitle(pageKey);
-        location.hash = path;
-    }
-
-    function handleHashChange() {
-        const path = location.hash.slice(1) || 'home';
-        navigateTo(path);
-    }
-    
-    // --- Unique ID Generation ---
-    function generateId() {
-        return 'id-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-    }
-
-    // --- Date Formatting ---
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
-    
-    // --- HTML Sanitization (Basic) ---
-    function sanitizeHTML(str) { // Very basic, for rich text display
-        const temp = document.createElement('div');
-        temp.textContent = str;
-        return temp.innerHTML;
-    }
-
-
-    // --- RENDER FUNCTIONS ---
-    function renderHomePage() {
-        DOMElements.pageSections.home.innerHTML = `
-            <h1 class="section-title">Latest Blog Posts</h1>
-            <div class="card-grid" id="homeBlogGrid">
-                ${blogs.slice(0, 3).map(blog => renderBlogCard(blog)).join('') || '<p>No blog posts yet. Chirag is working on it!</p>'}
-            </div>
-            ${blogs.length > 3 ? `<div class="text-center mt-3"><button onclick="navigateTo('all-blogs')" class="card-button">View All Blogs</button></div>` : ''}
-
-            <h1 class="section-title mt-3">Latest APKs</h1>
-            <div class="card-grid" id="homeApkGrid">
-                ${apks.slice(0, 3).map(apk => renderApkCard(apk)).join('') || '<p>No APKs available yet.</p>'}
-            </div>
-             ${apks.length > 3 ? `<div class="text-center mt-3"><button onclick="navigateTo('apk-downloads')" class="card-button apk-card">View All APKs</button></div>` : ''}
-        `;
-    }
-    
-    function renderAllBlogsPage() { // New function if you add "View All Blogs"
-        DOMElements.pageSections.home.innerHTML = `
-            <h1 class="section-title">All Blog Posts</h1>
-            <div class="card-grid">
-                ${blogs.map(blog => renderBlogCard(blog)).join('') || '<p>No blog posts yet.</p>'}
-            </div>
-        `;
-         showPage('home'); // Re-use home section for all blogs for simplicity
-    }
-
-
-    function renderBlogCard(blog) {
-        let mediaHTML = '';
-        if (blog.featuredMediaUrl) {
-            if (blog.featuredMediaType === 'video' || blog.featuredMediaUrl.includes('youtube.com') || blog.featuredMediaUrl.includes('youtu.be')) {
-                mediaHTML = `<div class="card-thumbnail-video">Video Post</div>`; // Placeholder for card
-            } else {
-                mediaHTML = `<img src="${blog.featuredMediaUrl}" alt="${sanitizeHTML(blog.title)}" class="card-thumbnail">`;
-            }
-        }
-        const shortDesc = blog.description.length > 150 ? blog.description.substring(0, 150) + '...' : blog.description;
-
-        return `
-            <article class="card">
-                ${mediaHTML}
-                <div class="card-content">
-                    <h3 class="card-title">${sanitizeHTML(blog.title)}</h3>
-                    <p class="card-meta">By ${ADMIN_NAME} on ${formatDate(blog.date)} | Views: ${blog.views || 0}</p>
-                    <div class="card-description">${shortDesc.replace(/<[^>]*>?/gm, '').substring(0,100)+'...'}</div> {/* Strip HTML for card description */}
-                    <button onclick="navigateTo('blogDetails/${blog.id}')" class="card-button">Read More</button>
-                </div>
-            </article>
-        `;
-    }
-
-    function renderApkCard(apk) {
-        return `
-            <article class="card apk-card">
-                <div class="card-content">
-                    <h3 class="card-title"><i class="fab fa-android"></i> ${sanitizeHTML(apk.title)}</h3>
-                    <p class="card-meta">Version: ${sanitizeHTML(apk.version)} | By ${ADMIN_NAME}</p>
-                    <p class="card-description">${sanitizeHTML(apk.description.substring(0,100))}...</p>
-                    <a href="${apk.fileUrl}" target="_blank" download class="card-button apk-card">Download APK</a>
-                </div>
-            </article>
-        `;
-    }
-
-    function renderBlogDetailsPage(blogId) {
-        const blog = blogs.find(b => b.id === blogId);
-        if (!blog) {
-            DOMElements.pageSections.blogDetails.innerHTML = `<p class="text-center">Blog post not found.</p>`;
-            return;
-        }
-        
-        // Increment view count (simple version)
-        blog.views = (blog.views || 0) + 1;
-        saveToStorage(STORAGE_KEYS.blogs, blogs);
-
-
-        let mediaHTML = '';
-        if (blog.featuredMediaUrl) {
-            if (blog.featuredMediaType === 'video' || blog.featuredMediaUrl.includes('youtube.com') || blog.featuredMediaUrl.includes('youtu.be')) {
-                const videoId = blog.featuredMediaUrl.includes('youtu.be') ? blog.featuredMediaUrl.split('/').pop() : new URL(blog.featuredMediaUrl).searchParams.get('v');
-                if (videoId) {
-                     mediaHTML = `<iframe class="post-featured-media-video" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                } else { // direct video link
-                    mediaHTML = `<video controls class="post-featured-media-video" src="${blog.featuredMediaUrl}"></video>`;
-                }
-            } else {
-                mediaHTML = `<img src="${blog.featuredMediaUrl}" alt="${sanitizeHTML(blog.title)}" class="post-featured-media">`;
-            }
-        }
-
-        const likesData = loadFromStorage(STORAGE_KEYS.likes, {});
-        const isLiked = likesData[blog.id] && likesData[blog.id].userLiked; // Simple flag for local like
-
-        DOMElements.pageSections.blogDetails.innerHTML = `
-            <article>
-                <header class="post-header">
-                    <h1 class="post-title">${sanitizeHTML(blog.title)}</h1>
-                    <p class="post-meta">
-                        <span><i class="fas fa-user"></i> ${ADMIN_NAME}</span>
-                        <span><i class="fas fa-calendar-alt"></i> ${formatDate(blog.date)}</span>
-                        <span><i class="fas fa-eye"></i> Views: ${blog.views || 0}</span>
-                    </p>
-                </header>
-                ${mediaHTML}
-                <div class="post-content">${blog.description}</div> {/* Allow basic HTML here */}
-                
-                <div class="post-actions">
-                    <div class="share-buttons">
-                        <button class="whatsapp" onclick="shareSocial('whatsapp', '${blog.id}')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-                        <button class="facebook" onclick="shareSocial('facebook', '${blog.id}')"><i class="fab fa-facebook-f"></i> Facebook</button>
-                        <button class="twitter" onclick="shareSocial('twitter', '${blog.id}')"><i class="fab fa-twitter"></i> Twitter</button>
-                    </div>
-                    <button id="likeBtn-${blog.id}" class="like-button ${isLiked ? 'liked' : ''}" onclick="toggleLike('${blog.id}')">
-                        <i class="fas fa-heart like-icon"></i> <span id="likeCount-${blog.id}">${blog.likes || 0}</span> Likes
-                    </button>
-                </div>
-            </article>
-            <section class="comments-section">
-                <h3>Comments (<span id="commentCount-${blog.id}">${(blog.comments || []).length}</span>)</h3>
-                <div id="commentsList-${blog.id}">
-                    ${(blog.comments && blog.comments.length > 0) ? blog.comments.map(c => `
-                        <div class="comment">
-                            <p class="comment-author">${sanitizeHTML(c.author)}</p>
-                            <p class="comment-text">${sanitizeHTML(c.text)}</p>
-                            <p class="comment-date"><small>${formatDate(c.date)}</small></p>
-                        </div>
-                    `).join('') : '<p>No comments yet. Be the first!</p>'}
-                </div>
-                <form id="commentForm-${blog.id}" class="mt-2" onsubmit="submitComment(event, '${blog.id}')">
-                    <h4>Leave a Comment</h4>
-                    <div class="form-group">
-                        <label for="commentAuthor-${blog.id}">Your Name (Optional):</label>
-                        <input type="text" id="commentAuthor-${blog.id}" placeholder="Anonymous">
-                    </div>
-                    <div class="form-group">
-                        <label for="commentText-${blog.id}">Comment:</label>
-                        <textarea id="commentText-${blog.id}" rows="4" required></textarea>
-                    </div>
-                    <button type="submit">Post Comment</button>
-                </form>
-            </section>
-        `;
-        updateDocumentTitle('blogDetails'); // Update title with blog name
-    }
-
-    function renderApkDownloadsPage() {
-        DOMElements.pageSections.apkDownloads.innerHTML = `
-            <h1 class="section-title">Download APKs</h1>
-            <div class="card-grid">
-                ${apks.map(apk => renderApkCard(apk)).join('') || '<p>No APKs currently available.</p>'}
-            </div>
-        `;
-    }
-
-    function renderAdminPanel() {
-        DOMElements.pageSections.adminContent.innerHTML = `
-            <div class="admin-section">
-                <h3>Manage Blog Posts</h3>
-                <form id="blogForm" onsubmit="handleBlogFormSubmit(event)">
-                    <input type="hidden" id="blogIdInput">
-                    <div class="form-group">
-                        <label for="blogTitleInput">Title:</label>
-                        <input type="text" id="blogTitleInput" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="blogMediaUrlInput">Featured Image/Video URL:</label>
-                        <input type="url" id="blogMediaUrlInput" placeholder="https://example.com/image.jpg or YouTube URL">
-                    </div>
-                    <div class="form-group">
-                        <label for="blogMediaTypeInput">Media Type:</label>
-                        <select id="blogMediaTypeInput">
-                            <option value="image">Image</option>
-                            <option value="video">Video</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="blogDescriptionInput">Description (Supports Basic HTML):</label>
-                        <textarea id="blogDescriptionInput" rows="10" required></textarea>
-                        <small>Allowed HTML: <p>, <br>, <strong>, <em>, <ul>, <ol>, <li>, <a href="...">, <img src="..."></small>
-                    </div>
-                    <button type="submit" class="admin-button" id="blogSubmitBtn">Add Blog Post</button>
-                    <button type="button" class="admin-button" id="blogClearBtn" onclick="clearBlogForm()" style="background: var(--secondary-color); margin-left:10px;">Clear Form</button>
-                </form>
-                <div class="admin-list mt-3">
-                    <h4>Existing Blog Posts (<span id="adminBlogCount">${blogs.length}</span>)</h4>
-                    <table id="adminBlogsTable">
-                        <thead><tr><th>Title</th><th>Date</th><th>Actions</th></tr></thead>
-                        <tbody>${renderAdminBlogRows()}</tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="admin-section">
-                <h3>Manage APKs</h3>
-                <form id="apkForm" onsubmit="handleApkFormSubmit(event)">
-                    <input type="hidden" id="apkIdInput">
-                    <div class="form-group">
-                        <label for="apkTitleInput">APK Title:</label>
-                        <input type="text" id="apkTitleInput" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apkVersionInput">Version:</label>
-                        <input type="text" id="apkVersionInput" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apkDescriptionInput">Description:</label>
-                        <textarea id="apkDescriptionInput" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="apkFileUrlInput">APK File URL (Direct Download Link):</label>
-                        <input type="url" id="apkFileUrlInput" placeholder="https://example.com/app.apk" required>
-                        <small><strong>Important:</strong> Host your APK file on a reliable service (e.g., GitHub Releases, Google Drive direct link) and paste the direct download URL here.</small>
-                    </div>
-                    <button type="submit" class="admin-button" id="apkSubmitBtn">Add APK</button>
-                     <button type="button" class="admin-button" id="apkClearBtn" onclick="clearApkForm()" style="background: var(--secondary-color); margin-left:10px;">Clear Form</button>
-                </form>
-                <div class="admin-list mt-3">
-                    <h4>Uploaded APKs (<span id="adminApkCount">${apks.length}</span>)</h4>
-                    <table id="adminApksTable">
-                         <thead><tr><th>Title</th><th>Version</th><th>Actions</th></tr></thead>
-                        <tbody>${renderAdminApkRows()}</tbody>
-                    </table>
-                </div>
-            </div>
-        `;
-    }
-
-    function renderAdminBlogRows() {
-        return blogs.map(blog => `
-            <tr data-id="${blog.id}">
-                <td>${sanitizeHTML(blog.title.substring(0,50))}...</td>
-                <td>${formatDate(blog.date)}</td>
-                <td class="actions">
-                    <button class="admin-button edit" onclick="editBlog('${blog.id}')">Edit</button>
-                    <button class="admin-button delete" onclick="deleteBlog('${blog.id}')">Delete</button>
-                </td>
-            </tr>
-        `).join('');
-    }
-    function renderAdminApkRows() {
-         return apks.map(apk => `
-            <tr data-id="${apk.id}">
-                <td>${sanitizeHTML(apk.title)}</td>
-                <td>${sanitizeHTML(apk.version)}</td>
-                <td class="actions">
-                    <button class="admin-button edit" onclick="editApk('${apk.id}')">Edit</button>
-                    <button class="admin-button delete" onclick="deleteApk('${apk.id}')">Delete</button>
-                </td>
-            </tr>
-        `).join('');
-    }
-    
-    // --- FORM HANDLING & CRUD ---
-
-    // Blogs
-    function handleBlogFormSubmit(event) {
-        event.preventDefault();
-        const id = document.getElementById('blogIdInput').value;
-        const title = document.getElementById('blogTitleInput').value.trim();
-        const mediaUrl = document.getElementById('blogMediaUrlInput').value.trim();
-        const mediaType = document.getElementById('blogMediaTypeInput').value;
-        const description = document.getElementById('blogDescriptionInput').value; // Keep HTML for rich text
-
-        if (!title || !description) {
-            alert("Title and Description are required.");
-            return;
-        }
-
-        if (id) { // Editing existing blog
-            const blogIndex = blogs.findIndex(b => b.id === id);
-            if (blogIndex > -1) {
-                blogs[blogIndex] = { ...blogs[blogIndex], title, featuredMediaUrl: mediaUrl, featuredMediaType: mediaType, description };
-            }
-        } else { // Adding new blog
-            const newBlog = {
-                id: generateId(),
-                title,
-                featuredMediaUrl: mediaUrl,
-                featuredMediaType: mediaType,
-                description,
-                author: ADMIN_NAME,
-                date: new Date().toISOString(),
-                likes: 0,
-                comments: [],
-                views: 0
-            };
-            blogs.unshift(newBlog); // Add to top
-        }
-        saveToStorage(STORAGE_KEYS.blogs, blogs);
-        clearBlogForm();
-        document.getElementById('adminBlogsTable').querySelector('tbody').innerHTML = renderAdminBlogRows();
-        document.getElementById('adminBlogCount').textContent = blogs.length;
-        alert(id ? 'Blog post updated!' : 'Blog post added!');
-    }
-
-    function clearBlogForm() {
-        document.getElementById('blogForm').reset();
-        document.getElementById('blogIdInput').value = '';
-        document.getElementById('blogSubmitBtn').textContent = 'Add Blog Post';
-    }
-
-    function editBlog(blogId) {
-        const blog = blogs.find(b => b.id === blogId);
-        if (blog) {
-            document.getElementById('blogIdInput').value = blog.id;
-            document.getElementById('blogTitleInput').value = blog.title;
-            document.getElementById('blogMediaUrlInput').value = blog.featuredMediaUrl || '';
-            document.getElementById('blogMediaTypeInput').value = blog.featuredMediaType || 'image';
-            document.getElementById('blogDescriptionInput').value = blog.description;
-            document.getElementById('blogSubmitBtn').textContent = 'Update Blog Post';
-            window.scrollTo(0, document.getElementById('blogForm').offsetTop - 80); // Scroll to form
-        }
-    }
-
-    function deleteBlog(blogId) {
-        if (confirm('Are you sure you want to delete this blog post?')) {
-            blogs = blogs.filter(b => b.id !== blogId);
-            saveToStorage(STORAGE_KEYS.blogs, blogs);
-            document.getElementById('adminBlogsTable').querySelector('tbody').innerHTML = renderAdminBlogRows();
-            document.getElementById('adminBlogCount').textContent = blogs.length;
-            alert('Blog post deleted.');
-        }
-    }
-
-    // APKs
-    function handleApkFormSubmit(event) {
-        event.preventDefault();
-        const id = document.getElementById('apkIdInput').value;
-        const title = document.getElementById('apkTitleInput').value.trim();
-        const version = document.getElementById('apkVersionInput').value.trim();
-        const description = document.getElementById('apkDescriptionInput').value.trim();
-        const fileUrl = document.getElementById('apkFileUrlInput').value.trim();
-
-        if (!title || !version || !fileUrl || !description) {
-            alert("All APK fields are required.");
-            return;
-        }
-        if (!fileUrl.toLowerCase().endsWith('.apk')) {
-            alert("File URL must end with .apk");
-            return;
-        }
-
-
-        if (id) { // Editing
-            const apkIndex = apks.findIndex(a => a.id === id);
-            if (apkIndex > -1) {
-                apks[apkIndex] = { ...apks[apkIndex], title, version, description, fileUrl, author: ADMIN_NAME };
-            }
-        } else { // Adding new
-            const newApk = {
-                id: generateId(),
-                title, version, description, fileUrl, author: ADMIN_NAME,
-                uploadDate: new Date().toISOString()
-            };
-            apks.unshift(newApk);
-        }
-        saveToStorage(STORAGE_KEYS.apks, apks);
-        clearApkForm();
-        document.getElementById('adminApksTable').querySelector('tbody').innerHTML = renderAdminApkRows();
-        document.getElementById('adminApkCount').textContent = apks.length;
-        alert(id ? 'APK details updated!' : 'APK added!');
-    }
-
-    function clearApkForm() {
-        document.getElementById('apkForm').reset();
-        document.getElementById('apkIdInput').value = '';
-        document.getElementById('apkSubmitBtn').textContent = 'Add APK';
-    }
-
-    function editApk(apkId) {
-        const apk = apks.find(a => a.id === apkId);
-        if (apk) {
-            document.getElementById('apkIdInput').value = apk.id;
-            document.getElementById('apkTitleInput').value = apk.title;
-            document.getElementById('apkVersionInput').value = apk.version;
-            document.getElementById('apkDescriptionInput').value = apk.description;
-            document.getElementById('apkFileUrlInput').value = apk.fileUrl;
-            document.getElementById('apkSubmitBtn').textContent = 'Update APK';
-            window.scrollTo(0, document.getElementById('apkForm').offsetTop - 80);
-        }
-    }
-
-    function deleteApk(apkId) {
-         if (confirm('Are you sure you want to delete this APK entry? (This does not delete the file from its host)')) {
-            apks = apks.filter(a => a.id !== apkId);
-            saveToStorage(STORAGE_KEYS.apks, apks);
-            document.getElementById('adminApksTable').querySelector('tbody').innerHTML = renderAdminApkRows();
-            document.getElementById('adminApkCount').textContent = apks.length;
-            alert('APK entry deleted.');
-        }
-    }
-    
-    // --- USER INTERACTIONS (Likes, Comments, Share) ---
-    function toggleLike(blogId) {
-        const blog = blogs.find(b => b.id === blogId);
-        if (!blog) return;
-
-        let likesData = loadFromStorage(STORAGE_KEYS.likes, {});
-        if (!likesData[blogId]) likesData[blogId] = { count: 0, userLiked: false };
-
-        const likeButtonEl = document.getElementById(`likeBtn-${blogId}`);
-        const likeCountEl = document.getElementById(`likeCount-${blogId}`);
-
-        if (likesData[blogId].userLiked) { // Unlike
-            blog.likes = Math.max(0, (blog.likes || 0) - 1);
-            likesData[blogId].userLiked = false;
-            likeButtonEl.classList.remove('liked');
-        } else { // Like
-            blog.likes = (blog.likes || 0) + 1;
-            likesData[blogId].userLiked = true;
-            likeButtonEl.classList.add('liked');
-        }
-        likesData[blogId].count = blog.likes; // Ensure sync
-        
-        likeCountEl.textContent = blog.likes;
-        saveToStorage(STORAGE_KEYS.blogs, blogs);
-        saveToStorage(STORAGE_KEYS.likes, likesData);
-    }
-
-    function submitComment(event, blogId) {
-        event.preventDefault();
-        const blog = blogs.find(b => b.id === blogId);
-        if (!blog) return;
-
-        const author = document.getElementById(`commentAuthor-${blogId}`).value.trim() || "Anonymous";
-        const text = document.getElementById(`commentText-${blogId}`).value.trim();
-
-        if (!text) {
-            alert("Comment text cannot be empty.");
-            return;
-        }
-
-        const newComment = {
-            author,
-            text,
-            date: new Date().toISOString()
-        };
-
-        blog.comments = blog.comments || [];
-        blog.comments.unshift(newComment); // Add to top
-        saveToStorage(STORAGE_KEYS.blogs, blogs);
-
-        // Re-render comments list and update count
-        const commentsListEl = document.getElementById(`commentsList-${blogId}`);
-        commentsListEl.innerHTML = blog.comments.map(c => `
-            <div class="comment">
-                <p class="comment-author">${sanitizeHTML(c.author)}</p>
-                <p class="comment-text">${sanitizeHTML(c.text)}</p>
-                <p class="comment-date"><small>${formatDate(c.date)}</small></p>
-            </div>
-        `).join('');
-        document.getElementById(`commentCount-${blogId}`).textContent = blog.comments.length;
-        document.getElementById(`commentForm-${blogId}`).reset();
-    }
-    
-    function shareSocial(platform, blogId) {
-        const blog = blogs.find(b => b.id === blogId);
-        if (!blog) return;
-        const url = `${window.location.origin}${window.location.pathname}#blogDetails/${blog.id}`;
-        const title = encodeURIComponent(blog.title);
-        let shareUrl = '';
-
-        switch(platform) {
-            case 'whatsapp':
-                shareUrl = `https://api.whatsapp.com/send?text=${title}%20${encodeURIComponent(url)}`;
-                break;
-            case 'facebook':
-                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}"e=${title}`;
-                break;
-            case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${title}`;
-                break;
-        }
-        if (shareUrl) window.open(shareUrl, '_blank');
-    }
-
-
-    // --- INITIALIZATION ---
-    function initApp() {
-        // Load data
-        blogs = loadFromStorage(STORAGE_KEYS.blogs, []).sort((a,b) => new Date(b.date) - new Date(a.date)); // Ensure sorted
-        apks = loadFromStorage(STORAGE_KEYS.apks, []).sort((a,b) => new Date(b.uploadDate) - new Date(a.uploadDate));
-
-        // Theme
-        applyTheme(loadFromStorage(STORAGE_KEYS.theme, 'light'));
-        
-        // Admin Session
-        checkAdminSession();
-
-        // Footer Year
-        if (DOMElements.currentYearEl) DOMElements.currentYearEl.textContent = new Date().getFullYear();
-
-        // Initial Page Load (from hash or default to home)
-        handleHashChange(); 
-        window.addEventListener('hashchange', handleHashChange);
-
-        // Event Listeners
-        DOMElements.themeToggleBtn.addEventListener('click', toggleTheme);
-        DOMElements.mobileMenuBtn.addEventListener('click', () => {
-            DOMElements.navLinks.classList.toggle('active');
-            DOMElements.mobileMenuBtn.innerHTML = DOMElements.navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-        DOMElements.adminLoginBtn.addEventListener('click', handleAdminLogin);
-        
-        DOMElements.downloadAppBtnPWA.addEventListener('click', triggerPWAInstall);
-        DOMElements.installAppActionBtn.addEventListener('click', triggerPWAInstall);
-        DOMElements.dismissInstallBannerBtn.addEventListener('click', () => {
-            DOMElements.installBanner.style.display = 'none';
-        });
-        
-        // Close mobile nav on link click
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if(!link.id || (link.id && link.id !== 'adminLoginBtn')) { // Don't close for admin btn if it's just opening prompt
-                     DOMElements.navLinks.classList.remove('active');
-                     DOMElements.mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                     // Navigation is handled by navigateTo via hashchange or direct call
-                     if (link.getAttribute('href')) {
-                         navigateTo(link.getAttribute('href').substring(1));
-                     }
-                }
-            });
-        });
-
-
-        // Hide loading screen
-        setTimeout(() => {
-            DOMElements.loadingScreen.style.opacity = '0';
-            setTimeout(() => DOMElements.loadingScreen.style.display = 'none', 500);
-        }, 300);
-
-        // Register Service Worker for PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js') // sw.js should be in the root
-                    .then(registration => console.log('ServiceWorker registration successful scope: ', registration.scope))
-                    .catch(err => console.log('ServiceWorker registration failed: ', err));
-            });
-        }
-    }
-
-    // Start the app
-    document.addEventListener('DOMContentLoaded', initApp);
-
-    // Add a new "all-blogs" route if user clicks "View All Blogs"
-    window.navigateToAllBlogs = function() {
-        renderAllBlogsPage();
-        location.hash = 'all-blogs'; // Update hash
-        updateDocumentTitle('all-blogs'); // Optional: if you want a specific title for this "page"
-    }
-    // Modify the navigateTo function to handle 'all-blogs'
-    const originalNavigateTo = navigateTo;
-    navigateTo = function(path) {
-        if (path === 'all-blogs') {
-            renderAllBlogsPage();
-            // The rest (showPage, updateDocumentTitle, location.hash) will be handled if you ensure
-            // 'all-blogs' can map to a page section or is handled as a special case.
-            // For simplicity, I'm having renderAllBlogsPage directly update DOMElements.pageSections.home.
-            showPage('home'); // Keep using the home section container
-            updateDocumentTitle('all-blogs');
-            location.hash = path;
-        } else {
-            originalNavigateTo(path);
-        }
-    }
-
-    </script>
-</body>
-</html>
+            color: #adb5bd; margi
